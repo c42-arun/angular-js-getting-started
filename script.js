@@ -6,17 +6,15 @@
 
 
   var MainController = function($scope, $http) {
-    $scope.person = {
-      firstName: "Arun",
-      lastName: "Kumar"
-    };
     
-    $http.get('https://api.github.com/users/odetocode1')
-    .then((response) => {
-      $scope.github = response.data;
-    }, (error) => {
-      $scope.error = 'Could not get user details';
-    });
+    $scope.search = function(username){
+      $http.get('https://api.github.com/users/' + username)
+        .then((response) => {
+          $scope.github = response.data;
+        }, (error) => {
+          $scope.error = 'Could not get user details';
+      });
+    };
   }
   
   app.controller("MainController", MainController);
