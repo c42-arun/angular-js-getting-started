@@ -3,9 +3,9 @@
 
 <head>
   <script data-require="angular.js@*" data-semver="4.0.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
-  <script data-require="angular.js@*" data-semver="4.0.0" src="script.ts"></script>
+  <!-- <script data-require="angular.js@*" data-semver="4.0.0" src="script.ts"></script>
   <script data-require="angular.js@*" data-semver="4.0.0" src="system.config.js"></script>
-  <script data-require="angular.js@*" data-semver="4.0.0" src="tsconfig.json"></script>
+  <script data-require="angular.js@*" data-semver="4.0.0" src="tsconfig.json"></script> -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js"></script>
 </head>
@@ -14,6 +14,7 @@
   <h1>{{ message }}</h1>
 
   {{ username }}
+  {{ countdown }}
   <form name="searchUser" ng-submit="search(username)">
     <input type="search" required placeholder="user name to find" ng-model="username">
     <input type="submit" value="Search">

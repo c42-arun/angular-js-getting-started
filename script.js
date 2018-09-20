@@ -1,17 +1,13 @@
 // Code goes here
 
-(function() {
+(function () {
 
   var app = angular.module("gitHubViewer", []);
 
 
-  var MainController = function($scope, $http) {
+  var MainController = function ($scope, $http, $interval) {
 
-    $scope.message = "GitHub Viewer";
-
-    $scope.repoSortOrder = "-stargazers_count";
-
-    var onUserComplete = function(response) {
+    var onUserComplete = function (response) {
       $scope.user = response.data;
 
       // get user repos
@@ -19,21 +15,39 @@
         .then(onReposComplete, onError);
     };
 
-    var onReposComplete = function(response) {
+    var onReposComplete = function (response) {
       $scope.repos = response.data;
     };
 
-    var onError = function(reason) {
+    var onError = function (reason) {
       $scope.error = 'Could not get data';
     };
 
-    $scope.search = function(username){
+    $scope.search = function (username) {
       $http.get('https://api.github.com/users/' + username)
         .then(onUserComplete, onError);
     };
+
+    var decrementCounter = function () {
+      $scope.countdown -= 1;
+      if ($scope.countdown < 1) {
+        $scope.search($scope.username);
+      }
+    };
+
+    var startCountdown = function () {
+      $interval(decrementCounter, 1000, $scope.countdown);
+    }
+
+    $scope.message = "GitHub Viewer";
+    $scope.username = "angular";
+    $scope.repoSortOrder = "-stargazers_count";
+    $scope.countdown = 5;
+
+    startCountdown();
   }
-  
+
   // passing parameters explicitly so angular knows what they are after mangled by minification
-  app.controller("MainController", ["$scope", "$http", MainController]);
-  
+  app.controller("MainController", MainController);
+
 }());
