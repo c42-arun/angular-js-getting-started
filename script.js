@@ -9,6 +9,8 @@
 
     $scope.message = "GitHub Viewer";
 
+    $scope.repoSortOrder = "-stargazers_count";
+
     var onUserComplete = function(response) {
       $scope.user = response.data;
 
