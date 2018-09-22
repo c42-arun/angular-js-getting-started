@@ -1,0 +1,16 @@
+<div>
+    User: {{user}}
+    Repo: {{repo}}
+
+    <div>{{error}}</div>
+
+    <div>Open issues: {{openIssuesCount}}</div>
+
+    <div ng-show="contributors">
+        <ul>
+            <li ng-repeat="c in contributors">
+                <img ng-src="{{c.avatar_url}}" alt="{{c.login}}">{{c.login}}
+            </li>
+        </ul>
+    </div>
+</div>

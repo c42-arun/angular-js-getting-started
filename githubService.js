@@ -20,9 +20,30 @@
                     });
         };
 
+        var getRepo = function(username, reponame) {
+            var repoUrl = 'https://api.github.com/repos/' + username + '/' + reponame;
+            
+            return $http.get(repoUrl)
+                    .then((response) => {
+                        return response.data;
+                    })
+        }
+
+        var getContributors = function(username, reponame) {
+            var contributorsUrl = 'https://api.github.com/repos/' 
+                                    + username + '/' + reponame + '/contributors';
+            
+            return $http.get(contributorsUrl)
+                    .then((response) => {
+                        return response.data;
+                    })
+        }
+
         return {
             getUser: getUser,
-            getRepos: getRepos
+            getRepos: getRepos,
+            getRepo: getRepo,
+            getContributors: getContributors
         };
     }
 
