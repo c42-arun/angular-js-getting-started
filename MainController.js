@@ -13,6 +13,7 @@
           $interval.cancel(countdownInterval);
           $scope.countdownHide = true;
         }
+        $location.path("/user/" + username);
     };
 
     var decrementCountdown = function() {

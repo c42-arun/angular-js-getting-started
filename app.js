@@ -5,8 +5,12 @@
     app.config(function($routeProvider) {
         $routeProvider
             .when("/main", {
-                templateUrl: "main.html",
+                templateUrl: "searchView.html",
                 controller: "MainController" // optional if specified in script using "ng-controller" directive
+            })
+            .when("/user/:username", {
+                templateUrl: "userView.html",
+                controller: "UserController"
             })
             .otherwise({
                 redirectTo: "/main"

@@ -1,4 +1,11 @@
-<div id="userDetails">
+<div>
+    {{ error }}
+
+    <div ng-hide="!user">
+        <h2> {{ user.name }} </h2>
+        <img ng-src="{{user.avatar_url}}" title="{{user.blog}}" />
+    </div>
+
     Order:
     <select ng-model="repoSortOrder">
         <option value="name">Name</option>
