@@ -1,43 +1,54 @@
 // Code goes here
 
-(function () {
+(function() {
 
   var app = angular.module("gitHubViewer", []);
 
 
-  var MainController = function ($scope, $http, $interval) {
+  var MainController = function(
+            $scope, $http, $interval, $log, $location, $anchorScroll, github) {
 
-    var onUserComplete = function (response) {
-      $scope.user = response.data;
+    var onUserComplete = function(data) {
+      $scope.user = data;
 
       // get user repos
-      $http.get($scope.user.repos_url)
+      github.getRepos(data)
         .then(onReposComplete, onError);
     };
 
-    var onReposComplete = function (response) {
-      $scope.repos = response.data;
+    var onReposComplete = function(data) {
+      $scope.repos = data;
+      
+      $location.hash("userDetails");
+      $anchorScroll();
     };
 
-    var onError = function (reason) {
+    var onError = function(reason) {
       $scope.error = 'Could not get data';
     };
 
-    $scope.search = function (username) {
-      $http.get('https://api.github.com/users/' + username)
+    $scope.search = function(username){
+      $log.info('Searching for ' + username);
+      github.getUser(username)
         .then(onUserComplete, onError);
+
+        if (countdownInterval) {
+          $interval.cancel(countdownInterval);
+          $scope.countdownHide = true;
+        }
     };
 
-    var decrementCounter = function () {
+    var decrementCoundown = function() {
       $scope.countdown -= 1;
       if ($scope.countdown < 1) {
         $scope.search($scope.username);
       }
     };
 
-    var startCountdown = function () {
-      $interval(decrementCounter, 1000, $scope.countdown);
-    }
+    var countdownInterval = null;
+    var startCountdown = function() {
+      countdownInterval = $interval(decrementCoundown, 1000, 5);
+    };
 
     $scope.message = "GitHub Viewer";
     $scope.username = "angular";
@@ -46,8 +57,8 @@
 
     startCountdown();
   }
-
-  // passing parameters explicitly so angular knows what they are after mangled by minification
+  
+  // removed passing parameters explicitly just to make demo code easier to write
   app.controller("MainController", MainController);
-
+  
 }());
