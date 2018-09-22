@@ -3,32 +3,16 @@
 
 <head>
   <script data-require="angular.js@*" data-semver="4.0.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
-  <!-- <script data-require="angular.js@*" data-semver="4.0.0" src="script.ts"></script>
-  <script data-require="angular.js@*" data-semver="4.0.0" src="system.config.js"></script>
-  <script data-require="angular.js@*" data-semver="4.0.0" src="tsconfig.json"></script> -->
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="MainController.js"></script>
   <script src="github.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
-<body ng-controller="MainController">
-  <h1>{{ message }}</h1>
-
-  <div ng-hide="countdownHide">searching '{{ username }}'  in {{ countdown }} seconds...</div>
-  <form name="searchUser" ng-submit="search(username)">
-    <input type="search" required placeholder="user name to find" ng-model="username">
-    <input type="submit" value="Search">
-  </form>
-
-  <div> {{ error }} </div>
-
-  <div ng-hide="!user">
-    <h2> {{ user.name }} </h2>
-    <img ng-src="{{user.avatar_url}}" title="{{user.blog}}" />
-  </div>
-
-  <div ng-include="'userDetails.html'" ng-show="user"></div>
-
+<body>
+  <h1>GitHub Viewer</h1>
+  <div ng-View></div>
 </body>
+
 
 </html>
